@@ -33,12 +33,12 @@ function RenderLandingPage(props) {
 
       {/* Graphs Section: Add code here for the graphs section for your first ticket */}
       <div className="graphs-section">
-      <div className="grant-rates-img-container">
-          <img src={GrantRatesByOfficeImg} alt="Grant Rates By Office" className="grant-rates-imgs"/>
-          <img src={GrantRatesByNationalityImg} alt="Grant Rates by Nationality" className= "grant-rates-imgs"/>          
+        <div className="grant-rates-img-container">
+          <img src={GrantRatesByOfficeImg} alt="Grant Rates By Office" className="grant-rates-imgs" />
+          <img src={GrantRatesByNationalityImg} alt="Grant Rates by Nationality" className="grant-rates-imgs" />
           <img src={GrantRatesOverTimeImg} alt="Grant Rates OverTime" className="grant-rates-imgs" />
         </div>
-        <div className="graphs-section-p-tags"> 
+        <div className="graphs-section-p-tags">
           <p>Search Grants By Office</p>
           <p>Search Grants By Nationality</p>
           <p>Search Grant Rates OverTime</p>
@@ -77,8 +77,27 @@ function RenderLandingPage(props) {
         </div>
       </div>
       <div>
-        {/* Bottom Section: Add code here for the graphs section for your first ticket */}
-        {/* <div className="bottom-section">*/}
+
+        <div className="bottom-section">
+          <h4 style={{fontSize: "xxx-large"}}>Systemic Disparity Insights</h4>
+          <div className="bottom-section-percentages">
+            <h2>36%</h2>
+            <h2>5%</h2>
+            <h2>6x Lower</h2>
+          </div>
+          <div className="bottom-section-p-tags">
+            <p>By then end of the Trump administration, the average asylum office grant rate had fallen 36 percent fron an average of 44 percent in fiscal year 2016 to 28 percent in fiscal year 2020.</p>
+            <p>The New York asylum office grant rate dropped to 5 percent in fiscal year 2020.</p>
+            <p>Between fiscal year 2017 and 2020,the New York asylum office's average grant rate was six times lower than the San Francisco asylum office.</p>
+          </div>
+          <Button
+            type="default"
+            style={{ backgroundColor: '#404C4A', color: '#FFFFFF' }}
+          // onClick={() => history.push('/graphs')}
+          >
+            Read More
+          </Button>
+        </div>
         <p onClick={() => scrollToTop()} className="back-to-top">
           Back To Top ^
         </p>
