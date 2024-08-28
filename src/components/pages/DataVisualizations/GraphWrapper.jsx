@@ -50,7 +50,7 @@ function GraphWrapper(props) {
         break;
     }
   }
-  function updateStateWithNewData(years, view, office, stateSettingCallback) {
+  async function updateStateWithNewData(years, view, office, stateSettingCallback) {
     /*
           _                                                                             _
         |                                                                                 |
@@ -74,36 +74,60 @@ function GraphWrapper(props) {
     */
 
     if (office === 'all' || !office) {
-      axios
-        .get(process.env.REACT_APP_API_URI, {
+     const bob = await axios 
+        .get('https://hrf-asylum-be-b.herokuapp.com/cases/fiscalSummary', {
+          params: {
+            from: years[0],
+            to: years[1],
+          },
+        });
+          // console.log(bob.data);
+
+          const cit = await axios 
+        .get('https://hrf-asylum-be-b.herokuapp.com/cases/citizenshipSummary', {
           // mock URL, can be simply replaced by `${Real_Production_URL}/summary` in prod!
           params: {
             from: years[0],
             to: years[1],
           },
-        })
-        .then(result => {
-          stateSettingCallback(view, office, test_data); // <-- `test_data` here can be simply replaced by `result.data` in prod!
-        })
-        .catch(err => {
-          console.error(err);
         });
+        bob.data.citizenshipResults = cit.data;
+        console.log(bob.data);
+        const arr = [];
+        arr.push(bob.data);
+        console.log(arr);
+          // console.log(cit.data);
+          stateSettingCallback(view, office, arr); // <-- `test_data` here can be simply replaced by `result.data` in prod!
+       
     } else {
-      axios
-        .get(process.env.REACT_APP_API_URI, {
-          // mock URL, can be simply replaced by `${Real_Production_URL}/summary` in prod!
-          params: {
-            from: years[0],
-            to: years[1],
-            office: office,
-          },
-        })
-        .then(result => {
-          stateSettingCallback(view, office, test_data); // <-- `test_data` here can be simply replaced by `result.data` in prod!
-        })
-        .catch(err => {
-          console.error(err);
-        });
+      const bob = await axios 
+      .get('https://hrf-asylum-be-b.herokuapp.com/cases/fiscalSummary', {
+        // mock URL, can be simply replaced by `${Real_Production_URL}/summary` in prod!
+        params: {
+          from: years[0],
+          to: years[1],
+          office: office,
+        },
+      });
+        // console.log(bob.data);
+
+        const cit = await axios 
+      .get('https://hrf-asylum-be-b.herokuapp.com/cases/citizenshipSummary', {
+        // mock URL, can be simply replaced by `${Real_Production_URL}/summary` in prod!
+        params: {
+          from: years[0],
+          to: years[1],
+          office: office,
+        },
+      });
+      bob.data.citizenshipResults = cit.data;
+      console.log(bob.data);
+      const arr = [];
+      arr.push(bob.data);
+      console.log(arr);
+        // console.log(cit.data);
+        stateSettingCallback(view, office, arr); // <-- `test_data` here can be simply replaced by `result.data` in prod!
+  
     }
   }
   const clearQuery = (view, office) => {
